@@ -20,6 +20,7 @@
 
       // TODO Ensure id/parentId is always a string (not int)
       this.id = this.row.data(this.settings.nodeIdAttr);
+	  this.type = this.row.data(this.settings.type);
 
       // TODO Move this to a setParentId function?
       parentId = this.row.data(this.settings.parentIdAttr);
@@ -262,6 +263,7 @@
             } else {
               this.roots.push(node);
             }
+			node._initialize();
           }
         }
       }
@@ -349,6 +351,8 @@
       var settings;
 
       settings = $.extend({
+		
+		type: "ttType",
         branchAttr: "ttBranch",
         clickableNodeNames: false,
         column: 0,
@@ -374,7 +378,7 @@
         var el, tree;
 
         tree = new Tree(this, settings);
-        tree.loadRows(this.rows).render();
+        tree.loadRows($(this).find('tr')).render();
 
         el = $(this).addClass("treetable").data("treetable", tree);
 
